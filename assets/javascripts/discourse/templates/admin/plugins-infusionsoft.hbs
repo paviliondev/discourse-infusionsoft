@@ -1,0 +1,111 @@
+<div class="authorization">
+  <div class="title">{{i18n 'infusionsoft.authorization.title'}}</div>
+
+  <div class='buttons'>
+    {{d-button label="infusionsoft.authorization.authorize" action="authorize"}}
+  </div>
+
+  <div class="authorization">
+    {{#if model.authorized}}
+      <span class="authorization-indicator authorized"></span>
+      <span>{{i18n 'infusionsoft.authorization.authorized'}}</span>
+    {{else}}
+      <span class="authorization-indicator not-authorized"></span>
+      <span>{{i18n 'infusionsoft.authorization.not_authorized'}}</span>
+    {{/if}}
+  </div>
+
+  <div class="keys">
+    <div class="control-group">
+      <label>{{i18n 'infusionsoft.authorization.access_token'}}:</label>
+      <div class="controls">
+        {{model.access_token}}
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label>{{i18n 'infusionsoft.authorization.access_token_expires_at'}}:</label>
+      <div class="controls">
+        {{model.access_token_expires_at}}
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label>{{i18n 'infusionsoft.authorization.access_token_refresh_at'}}:</label>
+      <div class="controls">
+        {{model.access_token_refresh_at}}
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label>{{i18n 'infusionsoft.authorization.refresh_token'}}:</label>
+      <div class="controls">
+        {{model.refresh_token}}
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label>{{i18n 'infusionsoft.authorization.code'}}:</label>
+      <div class="controls">
+        {{model.code}}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="subscriptions">
+  <div class="title">{{i18n 'infusionsoft.subscription.title'}}</div>
+
+  <div class='buttons'>
+    {{combo-box content=eventKeys value=eventKey}}
+    {{d-button label="infusionsoft.subscription.create" action="createSubscription"}}
+  </div>
+
+  <div class="list">
+    <div class="subtitle">{{i18n 'infusionsoft.subscription.list'}}</div>
+    {{#if loadingSubscriptions}}
+      {{loading-spinner size="large"}}
+    {{else}}
+      {{#each model.subscriptions as |s|}}
+        <div class="subscription">
+          <div class="subscription-data">
+            <ul>
+              <li>
+                <span>{{i18n 'infusionsoft.subscription.event'}}:</span>
+                <span>{{event-label s.eventKey}}</span>
+              </li>
+              <li>
+                <span>{{i18n 'infusionsoft.subscription.key'}}:</span>
+                <span>{{s.key}}</span>
+              </li>
+              <li>
+                <span>{{i18n 'infusionsoft.subscription.status'}}:</span>
+                <span>{{s.status}}</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="subscription-buttons">
+            {{d-button action='removeSubscription' actionParam=(hash event=s.event key=s.key) icon="minus" label="infusionsoft.subscription.remove"}}
+            {{d-button action='verifySubscription' actionParam=(hash event=s.event key=s.key) icon="check" label="infusionsoft.subscription.verify"}}
+          </div>
+        </div>
+      {{/each}}
+    {{/if}}
+  </div>
+</div>
+
+<div class="jobs">
+  <div class="title">{{i18n 'infusionsoft.job.title'}}</div>
+
+  <div class='buttons'>
+    {{d-button label="infusionsoft.job.sync_tag_groups" action="syncTagGroups"}}
+    {{#if startingJob}}
+      {{loading-spinner size="small"}}
+    {{else}}
+      {{#if jobStarted}}
+        {{i18n 'infusionsoft.job.started'}}
+      {{/if}}
+    {{/if}}
+  </div>
+</div>

@@ -1,0 +1,7 @@
+en:
+  site_settings:
+    infusionsoft_enabled: "Enable Infusionsoft"
+    infusionsoft_client_id: "Infusionsoft Client Id"
+    infusionsoft_client_secret: "Infusionsoft Client Secret"
+    errors:
+      infusionsoft_access_token_required: "An Infusionsoft Access Token is required to enable the Infusionsoft Plugin"

@@ -1,0 +1,27 @@
+en:
+  js:
+    infusionsoft:
+      title: "Infusionsoft"
+      authorization:
+        title: "Authorization"
+        authorize: "Authorize"
+        authorized: "Authorized"
+        not_authorized: "Not Authorized"
+        access_token: "Access Token"
+        access_token_expires_at: "Access token expires at"
+        access_token_refresh_at: "Access token refreshes at"
+        refresh_token: "Refresh Token"
+        code: "Authorization Code"
+      subscription:
+        title: "Subscription"
+        list: "Current Subscriptions"
+        event: "Event"
+        key: "Key"
+        status: "Status"
+        create: "Create Subscription"
+        verify: "Verify"
+        remove: "Remove"
+      job:
+        title: "Jobs"
+        sync_tag_groups: "Sync Tags and Groups"
+        started: "Job Started"

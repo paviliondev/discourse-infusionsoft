@@ -1,0 +1,9 @@
+plugin:
+  infusionsoft_enabled:
+    default: true
+    client: true
+  infusionsoft_client_id:
+    default: ''
+    client: true
+  infusionsoft_client_secret:
+    default: ''
