@@ -38,7 +38,7 @@ after_initialize do
 
   Discourse::Application.routes.prepend do
     mount ::Infusionsoft::Engine, at: 'infusionsoft'
-    get '/admin/plugins/infusionsoft' => 'admin/plugins#index', constraints: StaffConstraint.new
+    get '/admin/plugins/infusionsoft' => 'admin/plugins#index', constraints: ::StaffConstraint.new
   end
 
   Infusionsoft::Engine.routes.draw do
