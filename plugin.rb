@@ -36,9 +36,11 @@ after_initialize do
     TRADING_ROOM_TAG = 132
   end
 
+  require_dependency 'staff_constraint'
+
   Discourse::Application.routes.prepend do
     mount ::Infusionsoft::Engine, at: 'infusionsoft'
-    get '/admin/plugins/infusionsoft' => 'admin/plugins#index', constraints: ::StaffConstraint.new
+    get '/admin/plugins/infusionsoft' => 'admin/plugins#index', constraints: StaffConstraint.new
   end
 
   Infusionsoft::Engine.routes.draw do
