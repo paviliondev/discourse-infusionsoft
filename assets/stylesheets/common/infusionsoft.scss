@@ -52,6 +52,8 @@
   }
 
   .subscriptions {
+    margin-top: 10px;
+
     .subscription {
       display: flex;
       width: 500px;
@@ -67,5 +69,9 @@
       margin: 0;
       list-style: none;
     }
+  }
+
+  .jobs {
+    margin-top: 20px;
   }
 }

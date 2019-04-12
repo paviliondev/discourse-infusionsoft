@@ -21,7 +21,7 @@ after_initialize do
   end
 
   module ::Infusionsoft
-    NGROK_URL = "https://a1790b28.ngrok.io"
+    NGROK_URL = "https://0c9083b2.ngrok.io"
 
     TAG_GROUP_MAP = {
       348 => "6E",
@@ -57,7 +57,7 @@ after_initialize do
   load File.expand_path('../jobs/infusionsoft_tag_group_sync.rb', __FILE__)
   load File.expand_path('../lib/infusionsoft/authorization.rb', __FILE__)
   load File.expand_path('../lib/infusionsoft/subscription.rb', __FILE__)
-  load File.expand_path('../lib/infusionsoft/contact.rb', __FILE__)
+  load File.expand_path('../lib/infusionsoft/job.rb', __FILE__)
   load File.expand_path('../controllers/infusionsoft/admin.rb', __FILE__)
   load File.expand_path('../controllers/infusionsoft/authorization.rb', __FILE__)
   load File.expand_path('../controllers/infusionsoft/job.rb', __FILE__)

@@ -16,6 +16,7 @@ class Infusionsoft::AdminController < ::ApplicationController
 
     if Infusionsoft::Authorization.authorized
       data[:subscriptions] = Infusionsoft::Subscription.list
+      data[:jobs] = Infusionsoft::Job.list
     end
 
     render_json_dump(data)

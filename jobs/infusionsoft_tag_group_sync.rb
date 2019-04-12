@@ -9,16 +9,28 @@ module Jobs
         group_name = "#{Infusionsoft::TAG_GROUP_MAP[tag_id]}_AL"
         tr_group_name = "#{Infusionsoft::TAG_GROUP_MAP[tag_id]}_TR"
 
+        group = Infusionsoft::Job.find_or_create_group(group_name)
+        tr_group = Infusionsoft::Job.find_or_create_group(tr_group_name)
+
+        [group, tr_group].each do |group|
+          group.group_users.each do |gu|
+            gu.update_columns(primary_group_id: nil) if gu.user.primary_group_id == gu.group_id
+            gu.destroy
+          end
+        end
+
         tag_contacts['contacts'].each do |c|
           email = c['contact']['email']
-
-          Infusionsoft::Contact.update_group(email, group_name, 'add')
+          user = Infusionsoft::Job.find_or_create_user(email)
+          group.send('add', user)
 
           if tr_tag_emails.include?(email)
-            Infusionsoft::Contact.update_group(email, tr_group_name, 'add')
+            tr_group.send('add', user)
           end
         end
       end
+
+      Infusionsoft::Job.log_completion('sync_tag_groups')
     end
   end
 end

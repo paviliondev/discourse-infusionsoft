@@ -5,6 +5,7 @@ import { eventKeys } from '../lib/utilities';
 export default Ember.Controller.extend({
   loadingSubscriptions: false,
   eventKeys: eventKeys,
+  notAuthorized: Ember.computed.not('model.authorized'),
 
   actions: {
     authorize() {
@@ -76,7 +77,7 @@ export default Ember.Controller.extend({
         }
       }).catch(popupAjaxError)
         .then(result => {
-          if (result.success) {
+          if (result && result.success) {
             this.set('jobStarted', true);
           }
         }).finally(() => this.set('startingJob', false));

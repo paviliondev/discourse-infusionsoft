@@ -58,39 +58,44 @@
 
   <div class='buttons'>
     {{combo-box content=eventKeys value=eventKey}}
-    {{d-button label="infusionsoft.subscription.create" action="createSubscription"}}
+    {{d-button label="infusionsoft.subscription.create" action="createSubscription" disabled=notAuthorized}}
   </div>
 
   <div class="list">
     <div class="subtitle">{{i18n 'infusionsoft.subscription.list'}}</div>
+
     {{#if loadingSubscriptions}}
       {{loading-spinner size="large"}}
     {{else}}
-      {{#each model.subscriptions as |s|}}
-        <div class="subscription">
-          <div class="subscription-data">
-            <ul>
-              <li>
-                <span>{{i18n 'infusionsoft.subscription.event'}}:</span>
-                <span>{{infusionsoft-event-label s.eventKey}}</span>
-              </li>
-              <li>
-                <span>{{i18n 'infusionsoft.subscription.key'}}:</span>
-                <span>{{s.key}}</span>
-              </li>
-              <li>
-                <span>{{i18n 'infusionsoft.subscription.status'}}:</span>
-                <span>{{s.status}}</span>
-              </li>
-            </ul>
-          </div>
+      {{#if model.subscriptions}}
+        {{#each model.subscriptions as |s|}}
+          <div class="subscription">
+            <div class="subscription-data">
+              <ul>
+                <li>
+                  <span>{{i18n 'infusionsoft.subscription.event'}}:</span>
+                  <span>{{infusionsoft-event-label s.eventKey}}</span>
+                </li>
+                <li>
+                  <span>{{i18n 'infusionsoft.subscription.key'}}:</span>
+                  <span>{{s.key}}</span>
+                </li>
+                <li>
+                  <span>{{i18n 'infusionsoft.subscription.status'}}:</span>
+                  <span>{{s.status}}</span>
+                </li>
+              </ul>
+            </div>
 
-          <div class="subscription-buttons">
-            {{d-button action='removeSubscription' actionParam=(hash event=s.event key=s.key) icon="minus" label="infusionsoft.subscription.remove"}}
-            {{d-button action='verifySubscription' actionParam=(hash event=s.event key=s.key) icon="check" label="infusionsoft.subscription.verify"}}
+            <div class="subscription-buttons">
+              {{d-button action='removeSubscription' actionParam=(hash event=s.event key=s.key) icon="minus" label="infusionsoft.subscription.remove" disabled=notAuthorized}}
+              {{d-button action='verifySubscription' actionParam=(hash event=s.event key=s.key) icon="check" label="infusionsoft.subscription.verify" disabled=notAuthorized}}
+            </div>
           </div>
-        </div>
-      {{/each}}
+        {{/each}}
+      {{else}}
+        {{i18n 'infusionsoft.subscription.none'}}
+      {{/if}}
     {{/if}}
   </div>
 </div>
@@ -99,13 +104,27 @@
   <div class="title">{{i18n 'infusionsoft.job.title'}}</div>
 
   <div class='buttons'>
-    {{d-button label="infusionsoft.job.sync_tag_groups" action="syncTagGroups"}}
+    {{d-button label="infusionsoft.job.sync_tag_groups" action="syncTagGroups" disabled=notAuthorized}}
     {{#if startingJob}}
       {{loading-spinner size="small"}}
     {{else}}
       {{#if jobStarted}}
         {{i18n 'infusionsoft.job.started'}}
       {{/if}}
+    {{/if}}
+  </div>
+
+  <div class="list">
+    <div class="subtitle">{{i18n 'infusionsoft.job.list'}}</div>
+
+    {{#if model.jobs}}
+      {{#each model.jobs as |j|}}
+        <div class="job">
+          {{{i18n 'infusionsoft.job.completed' name=(i18n (concat 'infusionsoft.job.' j.name)) completed_at=(raw-date j.completed_at format="medium")}}}
+        </div>
+      {{/each}}
+    {{else}}
+      {{i18n 'infusionsoft.job.none'}}
     {{/if}}
   </div>
 </div>

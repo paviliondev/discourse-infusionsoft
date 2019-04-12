@@ -6,5 +6,6 @@ class Infusionsoft::JobController < ::ApplicationController
 
   def start
     Jobs.enqueue("infusionsoft_#{params[:job]}".to_sym)
+    render json: success_json
   end
 end

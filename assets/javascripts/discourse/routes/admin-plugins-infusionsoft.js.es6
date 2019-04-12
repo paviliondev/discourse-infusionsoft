@@ -6,7 +6,7 @@ export default Discourse.Route.extend({
   },
 
   setupController(controller, model) {
-    console.log(model);
+    console.log(model)
     controller.set('model', model);
   }
 });
