@@ -1,5 +1,7 @@
 module Jobs
-  class InfusionsoftTagGroupSync < Jobs::Base
+  class InfusionsoftTagGroupSync < Jobs::Scheduled
+    every 1.day
+
     def execute(args)
       tr_tag_contacts = Infusionsoft::Subscription.request('GET', "tags/#{Infusionsoft::TRADING_ROOM_TAG}/contacts")
       tr_tag_emails = tr_tag_contacts['contacts'].map { |c| c['contact']['email'] }
