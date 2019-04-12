@@ -5,6 +5,7 @@ import { eventKeys } from '../lib/utilities';
 export default Ember.Controller.extend({
   loadingSubscriptions: false,
   eventKeys: eventKeys,
+  eventKey: eventKeys[0].id,
   notAuthorized: Ember.computed.not('model.authorized'),
 
   actions: {
@@ -20,10 +21,12 @@ export default Ember.Controller.extend({
     createSubscription(params) {
       this.set('loadingSubscriptions', true)
 
+      const eventKey = this.get('eventKey');
+
       ajax('/infusionsoft/subscription', {
         type: 'POST',
         data: {
-          event: this.get('eventKey')
+          event: eventKey
         }
       }).catch(popupAjaxError)
         .then(result => {

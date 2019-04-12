@@ -38,11 +38,15 @@ class Infusionsoft::Subscription
       }
     )
 
+    params = {
+      method: type
+    }
+
     if body
-      connection.body = body.to_json
+      params[:body] = body.to_json
     end
 
-    response = connection.request(:method => type)
+    response = connection.request(params)
 
     JSON.parse(response.body)
   end
