@@ -1,31 +1,19 @@
 en:
   js:
-    infusionsoft:
-      title: "Infusionsoft"
+    discord:
+      title: "Discord"
+
       authorization:
         title: "Authorization"
         authorize: "Authorize"
-        authorized: "Authorized"
-        not_authorized: "Not Authorized"
-        access_token: "Access Token"
-        access_token_expires_at: "Access token expires at"
-        access_token_refresh_at: "Access token refreshes at"
-        refresh_token: "Refresh Token"
-        code: "Authorization Code"
-      subscription:
-        title: "Subscription"
-        list: "Current Subscriptions"
-        none: "No current subscriptions"
-        event: "Event"
-        key: "Key"
-        status: "Status"
-        create: "Create Subscription"
-        verify: "Verify"
-        remove: "Remove"
+
       job:
         title: "Jobs"
-        sync_tag_groups: "Sync Tags and Groups"
+        start: "Start Job"
         started: "Job Started. It will take a few minutes to complete."
         list: "Completed Jobs"
         none: "No jobs completed."
         completed: "{{name}} completed at {{completed_at}}"
+        group: "Group"
+        role: "Role"
+        sync_group_with_role: "Sync a Discourse Group with a Discord Role"

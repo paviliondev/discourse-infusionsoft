@@ -1,9 +1,9 @@
 plugin:
-  infusionsoft_enabled:
+  discord_enabled:
     default: true
     client: true
-  infusionsoft_client_id:
+  discord_client_id:
     default: ''
     client: true
-  infusionsoft_client_secret:
-    default: ''
+  discord_bot_token: ''
+  discord_guild_id: ''

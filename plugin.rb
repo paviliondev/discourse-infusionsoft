@@ -1,65 +1,56 @@
-# name: infusionsoft
-# about: Integrate Infusionsoft with Discourse
+# name: discord
+# about: Integrate Discord with Discourse
 # version: 0.1
 # authors: Angus McLeod
-# url: https://github.com/angusmcleod/infusionsoft-plugin
+# url: https://github.com/angusmcleod/discord-plugin
 
-enabled_site_setting :infusionsoft_enabled
+enabled_site_setting :discord_enabled
 
-add_admin_route 'infusionsoft.title', 'infusionsoft'
+add_admin_route 'discord.title', 'discord'
 
-register_asset 'stylesheets/common/infusionsoft.scss'
+register_asset 'stylesheets/common/discord.scss'
 
-load File.expand_path('../lib/validators/allow_infusionsoft_enabled_validator.rb', __FILE__)
+load File.expand_path('../lib/validators/allow_discord_enabled_validator.rb', __FILE__)
 
 after_initialize do
-  module ::Infusionsoft
+  module ::Discord
     class Engine < ::Rails::Engine
-      engine_name "infusionsoft"
-      isolate_namespace Infusionsoft
+      engine_name "discord"
+      isolate_namespace Discord
     end
   end
 
-  module ::Infusionsoft
-    NGROK_URL = "https://0c9083b2.ngrok.io"
-
-    TAG_GROUP_MAP = {
-      348 => "6E",
-      360 => "6J",
-      352 => "CL",
-      358 => "ES",
-      470 => "GC",
-      1085 => "NQ",
-      1089 => "ZN"
-    }
-
-    TRADING_ROOM_TAG = 132
-  end
-
   require_dependency 'staff_constraint'
-
   Discourse::Application.routes.prepend do
-    mount ::Infusionsoft::Engine, at: 'infusionsoft'
-    get '/admin/plugins/infusionsoft' => 'admin/plugins#index', constraints: StaffConstraint.new
+    mount ::Discord::Engine, at: 'discord'
+    get '/admin/plugins/discord' => 'admin/plugins#index', constraints: StaffConstraint.new
   end
 
-  Infusionsoft::Engine.routes.draw do
+  Discord::Engine.routes.draw do
     get 'admin' => "admin#index"
-    get 'authorization/callback' => "authorization#callback"
-    post 'subscription' => "subscription#create"
-    delete 'subscription' => "subscription#remove"
-    post 'subscription/hook' => "subscription#hook"
-    put 'subscription/verify' => "subscription#verify"
     put "job/start" => "job#start"
   end
 
-  load File.expand_path('../jobs/refresh_infusionsoft_access_token.rb', __FILE__)
-  load File.expand_path('../jobs/infusionsoft_tag_group_sync.rb', __FILE__)
-  load File.expand_path('../lib/infusionsoft/authorization.rb', __FILE__)
-  load File.expand_path('../lib/infusionsoft/subscription.rb', __FILE__)
-  load File.expand_path('../lib/infusionsoft/job.rb', __FILE__)
-  load File.expand_path('../controllers/infusionsoft/admin.rb', __FILE__)
-  load File.expand_path('../controllers/infusionsoft/authorization.rb', __FILE__)
-  load File.expand_path('../controllers/infusionsoft/job.rb', __FILE__)
-  load File.expand_path('../controllers/infusionsoft/subscription.rb', __FILE__)
+  load File.expand_path('../jobs/discord_sync_group_with_role.rb', __FILE__)
+  load File.expand_path('../lib/discord/discord.rb', __FILE__)
+  load File.expand_path('../lib/discord/job.rb', __FILE__)
+  load File.expand_path('../lib/discord/sync.rb', __FILE__)
+  load File.expand_path('../controllers/discord/admin.rb', __FILE__)
+  load File.expand_path('../controllers/discord/job.rb', __FILE__)
+
+  #module ExtendDiscordAuth
+    #def after_authenticate(auth_token)
+      #result = super(auth_token)
+      #result.extra_data[:uid] = auth_token[:uid]
+      #result
+    #end
+
+    #def after_create_account(user, auth)
+      #user.
+    #end
+  #end
+
+  #class DiscordAuthenticator
+    #prepend ExtendDiscordAuth
+  #end
 end
