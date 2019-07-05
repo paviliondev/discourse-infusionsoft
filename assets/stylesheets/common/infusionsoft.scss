@@ -1,4 +1,4 @@
-.discord {
+.infusionsoft {
   .title {
     font-size: 20px;
     font-weight: 800;
@@ -37,6 +37,38 @@
   .red-light {
     background-color: red;
     border-radius: 50%;
+  }
+
+  .keys {
+    margin: 20px 10px;
+
+    .controls, label {
+      display: inline-block;
+    }
+
+    label {
+      margin-right: 10px;
+    }
+  }
+
+  .subscriptions {
+    margin-top: 10px;
+
+    .subscription {
+      display: flex;
+      width: 500px;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #e1e1e1;
+      color: #333;
+      padding: 20px;
+      margin: 10px 0;
+    }
+
+    .subscription-data ul {
+      margin: 0;
+      list-style: none;
+    }
   }
 
   .jobs {
