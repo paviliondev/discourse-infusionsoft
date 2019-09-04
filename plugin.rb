@@ -30,7 +30,8 @@ after_initialize do
       358 => "ES",
       470 => "GC",
       1085 => "NQ",
-      1089 => "ZN"
+      1089 => "ZN",
+      132 => "TR"
     }
 
     TRADING_ROOM_TAG = 132
