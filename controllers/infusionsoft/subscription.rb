@@ -26,15 +26,23 @@ class Infusionsoft::SubscriptionController < ::ApplicationController
             email = contact['email_addresses'].map { |obj| obj['email'] }.first
             group_name = "#{Infusionsoft::TAG_GROUP_MAP[tag_id]}_AL"
 
-            Infusionsoft::Contact.update_group(email, group_name, action)
+            update_group(email, group_name, action)
 
             if contact['tag_ids'].include?(Infusionsoft::TRADING_ROOM_TAG)
               group_name = "#{Infusionsoft::TAG_GROUP_MAP[tag_id]}_TR"
 
-              Infusionsoft::Contact.update_group(email, group_name, action)
+              update_group(email, group_name, action)
             end
           end
         end
+      end
+    end
+  end
+  
+  def update_group(email, group_name, action)
+    if user = User.find_by_email(email)
+      if group = Group.find_by(name: group_name)
+        group.send(action, user)
       end
     end
   end
