@@ -2,27 +2,27 @@ require 'excon'
 
 class Infusionsoft::Authorization
   def self.access_token
-    PluginStore.get('infusionsoft', 'access_token') || {}
+    PluginStore.new('infusionsoft').get('access_token') || {}
   end
 
   def self.set_access_token(data)
-    PluginStore.set('infusionsoft', 'access_token', data)
+    PluginStore.new('infusionsoft').set('access_token', data)
   end
 
   def self.refresh_token
-    PluginStore.get('infusionsoft', 'refresh_token')
+    PluginStore.new('infusionsoft').get('refresh_token')
   end
 
   def self.set_refresh_token(token)
-    PluginStore.set('infusionsoft', 'refresh_token', token)
+    PluginStore.new('infusionsoft').set('refresh_token', token)
   end
 
   def self.code
-    PluginStore.get('infusionsoft', 'code')
+    PluginStore.new('infusionsoft').get('code')
   end
 
   def self.set_code(code)
-    PluginStore.set('infusionsoft', 'code', code)
+    PluginStore.new('infusionsoft').set('code', code)
   end
 
   def self.get_access_token
@@ -31,7 +31,7 @@ class Infusionsoft::Authorization
       client_secret: SiteSetting.infusionsoft_client_secret,
       code: Infusionsoft::Authorization.code,
       grant_type: 'authorization_code',
-      redirect_uri: (Rails.env.development? ? Infusionsoft::NGROK_URL : Discourse.base_url) + '/infusionsoft/authorization/callback'
+      redirect_uri: (Rails.env.development? ? Infusionsoft::LOCAL_URL : Discourse.base_url) + '/infusionsoft/authorization/callback'
     }
 
     result = Excon.post(

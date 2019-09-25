@@ -2,11 +2,11 @@ require 'excon'
 
 class Infusionsoft::Subscription
   def self.get(event)
-    PluginStore.get('infusionsoft', event) || {}
+    PluginStore.new('infusionsoft').get(event) || {}
   end
 
   def self.set(event, key, status)
-    PluginStore.set('infusionsoft', event,
+    PluginStore.new('infusionsoft').set(event,
       key: key,
       status: status
     )
@@ -23,7 +23,7 @@ class Infusionsoft::Subscription
     if response.status.to_i == 204
       current = self.get(event)
       if current && current['key'] == 'key'
-        PluginStore.remove('infusionsoft', event)
+        PluginStore.new('infusionsoft').remove(event)
       end
     end
   end
@@ -54,7 +54,7 @@ class Infusionsoft::Subscription
   def self.create(event)
     data = request('POST', "hooks",
       eventKey: event,
-      hookUrl: (Rails.env.development? ? Infusionsoft::NGROK_URL : Discourse.base_url) + "/infusionsoft/subscription/hook"
+      hookUrl: (Rails.env.development? ? Infusionsoft::LOCAL_URL : Discourse.base_url) + "/infusionsoft/subscription/hook"
     )
 
     self.handle_response(event, data)

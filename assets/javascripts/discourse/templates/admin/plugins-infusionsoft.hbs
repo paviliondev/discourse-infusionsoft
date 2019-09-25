@@ -88,8 +88,8 @@
             </div>
 
             <div class="subscription-buttons">
-              {{d-button action='removeSubscription' actionParam=(hash event=s.event key=s.key) icon="minus" label="infusionsoft.subscription.remove" disabled=notAuthorized}}
-              {{d-button action='verifySubscription' actionParam=(hash event=s.event key=s.key) icon="check" label="infusionsoft.subscription.verify" disabled=notAuthorized}}
+              {{d-button action='removeSubscription' actionParam=(hash event=s.eventKey key=s.key) icon="minus" label="infusionsoft.subscription.remove" disabled=notAuthorized}}
+              {{d-button action='verifySubscription' actionParam=(hash event=s.eventKey key=s.key) icon="check" label="infusionsoft.subscription.verify" disabled=notAuthorized}}
             </div>
           </div>
         {{/each}}
