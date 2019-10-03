@@ -1,5 +1,5 @@
 module Jobs
-  class RefreshInfusionsoftAccessToken < Jobs::Base
+  class RefreshInfusionsoftAccessToken < ::Jobs::Base
     def execute(args)
       Infusionsoft::Authorization.refresh_access_token
     end

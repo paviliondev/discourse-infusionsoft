@@ -1,5 +1,5 @@
 module Jobs
-  class InfusionsoftTagGroupSync < Jobs::Scheduled
+  class InfusionsoftTagGroupSync < ::Jobs::Scheduled
     every 1.day
 
     def execute(args)
