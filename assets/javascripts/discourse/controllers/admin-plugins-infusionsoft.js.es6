@@ -14,7 +14,7 @@ export default Ember.Controller.extend({
     authorize() {
       let infusionsoftUrl = "https://signin.infusionsoft.com/app/oauth/authorize";
       let discourseUrl = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '');
-      let clientId = "dzug89qvybwcestkqxxj6d3j";
+      let clientId = Discourse.SiteSettings.infusionsoft_client_id;
       let redirectUri =  encodeURIComponent(discourseUrl + "/infusionsoft/authorization/callback");
 
       window.location.href = infusionsoftUrl + `?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code`;
