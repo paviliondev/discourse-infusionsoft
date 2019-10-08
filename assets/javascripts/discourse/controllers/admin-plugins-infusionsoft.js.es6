@@ -2,6 +2,8 @@ import { ajax } from 'discourse/lib/ajax';
 import { popupAjaxError } from 'discourse/lib/ajax-error';
 import { eventKeys } from '../lib/utilities';
 
+const localUrl = "https://00542651.ngrok.io";
+
 export default Ember.Controller.extend({
   loadingSubscriptions: false,
   eventKeys: eventKeys,

@@ -22,16 +22,23 @@ class Infusionsoft::SubscriptionController < ::ApplicationController
           if Infusionsoft::TAG_GROUP_MAP.key?(tag_id)
             contact_id = data[:contact_details].first[:id]
             contact = Infusionsoft::Subscription.request('GET', "contacts/#{contact_id}")
-            action = event[1] == "applied" ? "add" : "remove"
+            contact_tag_ids = contact['tag_ids']
+            has_tr_tag = contact_tag_ids.include?(Infusionsoft::TRADING_ROOM_TAG)
+            contact_tag_ids = contact_tag_ids.select { |tid| tid != Infusionsoft::TRADING_ROOM_TAG }
+            
+            tr_tag_changed = tag_id == Infusionsoft::TRADING_ROOM_TAG
             email = contact['email_addresses'].map { |obj| obj['email'] }.first
-            group_name = "#{Infusionsoft::TAG_GROUP_MAP[tag_id]}_AL"
-
-            update_group(email, group_name, action)
-
-            if contact['tag_ids'].include?(Infusionsoft::TRADING_ROOM_TAG)
-              group_name = "#{Infusionsoft::TAG_GROUP_MAP[tag_id]}_TR"
-
-              update_group(email, group_name, action)
+            action = event[1] == "applied" ? "add" : "remove"
+            
+            if tr_tag_changed
+              contact_tag_ids.each do |tag_id|
+                al_action = action == "add" ? "remove" : "add"
+                update_group(email, "#{Infusionsoft::TAG_GROUP_MAP[tag_id]}_AL", al_action)
+                update_group(email, "#{Infusionsoft::TAG_GROUP_MAP[tag_id]}_TR", action)
+              end
+            else 
+              group_type = has_tr_tag ? "TR" : "AL"
+              update_group(email, "#{Infusionsoft::TAG_GROUP_MAP[tag_id]}_#{group_type}", action)              
             end
           end
         end

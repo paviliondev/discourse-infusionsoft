@@ -21,7 +21,7 @@ after_initialize do
   end
 
   module ::Infusionsoft
-    LOCAL_URL = "https://66dc31c9.ngrok.io"
+    LOCAL_URL = "https://00542651.ngrok.io"
 
     TAG_GROUP_MAP = {
       348 => "6E",

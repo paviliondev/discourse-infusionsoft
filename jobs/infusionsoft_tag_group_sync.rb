@@ -3,8 +3,7 @@ module Jobs
     every 1.day
 
     def execute(args)
-      tr_tag_contacts = Infusionsoft::Subscription.request('GET', "tags/#{Infusionsoft::TRADING_ROOM_TAG}/contacts")
-      tr_tag_emails = tr_tag_contacts['contacts'].map { |c| c['contact']['email'] }
+      tr_tag_emails = Infusionsoft::Subscription.tr_tag_emails
 
       Infusionsoft::TAG_GROUP_MAP.keys.each do |tag_id|
         tag_contacts = Infusionsoft::Subscription.request('GET', "tags/#{tag_id}/contacts")
@@ -24,10 +23,11 @@ module Jobs
         tag_contacts['contacts'].each do |c|
           email = c['contact']['email']
           user = Infusionsoft::Job.find_or_create_user(email)
-          group.send('add', user)
 
           if tr_tag_emails.include?(email)
             tr_group.send('add', user)
+          else
+            group.send('add', user)
           end
         end
       end
