@@ -1,6 +1,6 @@
 # name: infusionsoft
 # about: Integrate Infusionsoft with Discourse
-# version: 0.1
+# version: 0.1.1
 # authors: Angus McLeod
 # url: https://github.com/angusmcleod/infusionsoft-plugin
 
