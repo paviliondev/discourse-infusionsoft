@@ -49,6 +49,7 @@ class Infusionsoft::SubscriptionController < ::ApplicationController
   def update_group(email, group_name, action)
     if user = User.find_by_email(email)
       if group = Group.find_by(name: group_name)
+        Infusionsoft::Job.log_completion("#{action} #{user.username} - group '#{group_name}'")
         group.send(action, user)
       end
     end
