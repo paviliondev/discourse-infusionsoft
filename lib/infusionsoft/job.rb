@@ -32,7 +32,7 @@ class ::Infusionsoft::Job
   end
 
   def self.log_completion(name)
-    jobs = self.list
+    jobs = [*self.list]
     jobs = jobs.push({ name: name, completed_at: DateTime.now })
     PluginStore.new('infusionsoft').set('jobs', jobs)
   end
