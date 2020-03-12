@@ -5,6 +5,8 @@ class Infusionsoft::SubscriptionController < ::ApplicationController
                      :verify_authenticity_token
 
   def hook
+    Infusionsoft::Job.log_completion("Request received: #{params.keys}")
+    
     if params[:verification_key]
       response.headers['X-Hook-Secret'] = request.headers["X-Hook-Secret"]
       render status: 200, json: {
