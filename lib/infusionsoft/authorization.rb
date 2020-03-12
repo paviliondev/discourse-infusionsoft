@@ -31,7 +31,7 @@ class Infusionsoft::Authorization
       client_secret: SiteSetting.infusionsoft_client_secret,
       code: Infusionsoft::Authorization.code,
       grant_type: 'authorization_code',
-      redirect_uri: (Rails.env.development? ? Infusionsoft::LOCAL_URL : Discourse.base_url) + '/infusionsoft/authorization/callback'
+      redirect_uri: (Rails.env.development? ? Infusionsoft::Helper.local_url : Discourse.base_url) + '/infusionsoft/authorization/callback'
     }
 
     result = Excon.post(

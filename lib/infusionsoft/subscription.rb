@@ -54,7 +54,7 @@ class Infusionsoft::Subscription
   def self.create(event)
     data = request('POST', "hooks",
       eventKey: event,
-      hookUrl: (Rails.env.development? ? Infusionsoft::LOCAL_URL : Discourse.base_url) + "/infusionsoft/subscription/hook"
+      hookUrl: (Rails.env.development? ? Infusionsoft::Helper.local_url : Discourse.base_url) + "/infusionsoft/subscription/hook"
     )
 
     self.handle_response(event, data)

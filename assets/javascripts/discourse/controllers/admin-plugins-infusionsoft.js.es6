@@ -2,22 +2,29 @@ import { ajax } from 'discourse/lib/ajax';
 import { popupAjaxError } from 'discourse/lib/ajax-error';
 import { eventKeys } from '../lib/utilities';
 
-const localUrl = "https://00542651.ngrok.io";
-
 export default Ember.Controller.extend({
   loadingSubscriptions: false,
   eventKeys: eventKeys,
   eventKey: eventKeys[0].id,
   notAuthorized: Ember.computed.not('model.authorized'),
+  
+  getUrl() {
+    if (location.hostname === 'localhost') {
+      return 'https://45c8ad98.ngrok.io';
+    } else {
+      return location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '');
+    }
+  },
 
   actions: {
     authorize() {
       let infusionsoftUrl = "https://signin.infusionsoft.com/app/oauth/authorize";
-      let discourseUrl = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '');
+      let discourseUrl = this.getUrl();
       let clientId = Discourse.SiteSettings.infusionsoft_client_id;
-      let redirectUri =  encodeURIComponent(discourseUrl + "/infusionsoft/authorization/callback");
+      let redirectUri = encodeURIComponent(discourseUrl + "/infusionsoft/authorization/callback");
+      let params = `?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code`;
 
-      window.location.href = infusionsoftUrl + `?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code`;
+      window.location.href = infusionsoftUrl + params;
     },
 
     createSubscription(params) {

@@ -7,3 +7,8 @@ plugin:
     client: true
   infusionsoft_client_secret:
     default: ''
+  infusionsoft_tag_group_map:
+    type: list
+    default: ''
+  infusionsoft_trading_room_tag_id:
+    default: 132

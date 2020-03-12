@@ -113,18 +113,21 @@
       {{/if}}
     {{/if}}
   </div>
+</div>
 
-  <div class="list">
-    <div class="subtitle">{{i18n 'infusionsoft.job.list'}}</div>
-
-    {{#if model.jobs}}
-      {{#each model.jobs as |j|}}
-        <div class="job">
-          {{{i18n 'infusionsoft.job.completed' name=(i18n (concat 'infusionsoft.job.' j.name)) completed_at=(raw-date j.completed_at format="medium")}}}
-        </div>
+<div class="logs">
+  <div class="title">{{i18n 'infusionsoft.log.title'}}</div>
+  
+  {{#if model.logs}}
+    <ul>
+      {{#each model.logs as |log|}}
+        <li class="log">
+          <span>{{log.message}}</span>
+          <span> - {{raw-date log.completed_at format="medium"}}</span>
+        </li>
       {{/each}}
-    {{else}}
-      {{i18n 'infusionsoft.job.none'}}
-    {{/if}}
-  </div>
+    </ul>
+  {{else}}
+    {{i18n 'infusionsoft.log.none'}}
+  {{/if}}
 </div>

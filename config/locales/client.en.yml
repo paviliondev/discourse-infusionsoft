@@ -26,6 +26,6 @@ en:
         title: "Jobs"
         sync_tag_groups: "Sync Tags and Groups"
         started: "Job Started. It will take a few minutes to complete."
-        list: "Completed Jobs"
-        none: "No jobs completed."
-        completed: "{{name}} completed at {{completed_at}}"
+      log:
+        title: "Logs"
+        none: "no logs"

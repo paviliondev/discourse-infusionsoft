@@ -1,4 +1,4 @@
-class ::Infusionsoft::Job
+class ::Infusionsoft::Helper
   def self.find_or_create_group(name)
     Group.find_by(name: name) || Group.create(name: name)
   end
@@ -30,14 +30,17 @@ class ::Infusionsoft::Job
 
     user
   end
-
-  def self.log_completion(name)
-    jobs = [*self.list]
-    jobs = jobs.push({ name: name, completed_at: DateTime.now })
-    PluginStore.new('infusionsoft').set('jobs', jobs)
+  
+  def self.tag_group_map
+    map = {}
+    SiteSetting.infusionsoft_tag_group_map.split('|').each do |item|
+      parts = item.split(':')
+      map[parts.first.to_i] = parts.last.to_s
+    end
+    map
   end
-
-  def self.list
-    PluginStore.new('infusionsoft').get('jobs')
+  
+  def self.local_url
+    'https://45c8ad98.ngrok.io'
   end
 end
