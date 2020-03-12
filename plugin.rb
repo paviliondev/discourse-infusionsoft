@@ -1,6 +1,6 @@
 # name: discourse-infusionsoft
 # about: Integrate Infusionsoft with Discourse
-# version: 0.2.1
+# version: 0.2.2
 # authors: Angus McLeod
 # url: https://github.com/paviliondev/discourse-infusionsoft
 

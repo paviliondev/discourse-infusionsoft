@@ -17,8 +17,7 @@ class Infusionsoft::SubscriptionController < ::ApplicationController
       Infusionsoft::Log.create("web hook post request received for #{params[:event_key]}")
 
       if event[0] == "contactGroup"
-        updates = params[:object_keys]
-        apply_updates(updates)
+        apply_updates(event, params[:object_keys])
       end
       
       render plain: "[\"SUCCESS\"]", status: 200 
