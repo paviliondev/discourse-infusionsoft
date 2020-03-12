@@ -80,7 +80,7 @@ class Infusionsoft::Subscription
   end
   
   def self.tr_tag_emails
-    tr_tag_contacts = Infusionsoft::Subscription.request('GET', "tags/#{Infusionsoft::TRADING_ROOM_TAG}/contacts")
+    tr_tag_contacts = Infusionsoft::Subscription.request('GET', "tags/#{SiteSetting.infusionsoft_trading_room_tag_id}/contacts")
     tr_tag_contacts['contacts'].map { |c| c['contact']['email'] }
   end
 end
