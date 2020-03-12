@@ -25,7 +25,7 @@ class Infusionsoft::SubscriptionController < ::ApplicationController
     end
   end
   
-  def apply_updates(updates)
+  def apply_updates(event, updates)
     updates.each do |data|
       tag_id = data[:tag_id].to_i
       tag_group_map = Infusionsoft::Helper.tag_group_map
